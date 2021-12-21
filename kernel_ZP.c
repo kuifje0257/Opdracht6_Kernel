@@ -51,7 +51,7 @@ static void __exit gpiomod_exit(void)
 	// unregister all GPIOs
 	gpio_free_array(leds, ARRAY_SIZE(leds));
 }
-
+MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Branko De Caluwé");
 MODULE_DESCRIPTION("Opdracht6-Kernel");
 
