@@ -94,7 +94,7 @@ static void __exit gpiomod_exit(void)
 	// turn all LEDs off
 	for(i = 0; i < ARRAY_SIZE(leds); i++) {
 		gpio_set_value(leds[i].gpio, 0); 
-		printk(KERN_INFO "BMC: %d is aan.",leds[i].gpio);
+		printk(KERN_INFO "BMC: %d is uit.",leds[i].gpio);
 	}
 	printk(KERN_INFO "Leds off.");
 	
