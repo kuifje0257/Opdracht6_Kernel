@@ -1,4 +1,4 @@
-//sudo insmod kernel_ZP.ko mystring="hello" GPIO=17,22,27
+//sudo insmod kernel_ZP.ko
 
 #include <linux/module.h>
 #include <linux/kernel.h>
@@ -33,6 +33,7 @@ static int __init gpiomod_init(void)
 		gpio_set_value(leds[i].gpio, 1); 
 		printk(KERN_INFO "BMC: %d is aan.",leds[i].gpio);
 	}
+	printk(KERN_INFO "Leds on.");
 
 	if (ret) {
 		printk(KERN_ERR "Unable to request GPIOs: %d\n", ret);
@@ -55,7 +56,7 @@ static void __exit gpiomod_exit(void)
 		gpio_set_value(leds[i].gpio, 0); 
 		printk(KERN_INFO "BMC: %d is out.",leds[i].gpio);
 	}
-	
+	printk(KERN_INFO "Leds out.");
 	// unregister all GPIOs
 	gpio_free_array(leds, ARRAY_SIZE(leds));
 	msleep(1);
