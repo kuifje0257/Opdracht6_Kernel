@@ -1,4 +1,4 @@
-//sudo insmod kernel_MP.ko mystring="hello" GPIO=17,22,27
+//sudo insmod kernel_MP.ko mystring="hello" GPIO=17,22,27 levels=1,0,1
 
 #include <linux/module.h>
 #include <linux/moduleparam.h>
@@ -42,19 +42,21 @@ static int __init gpiomod_init(void)
 		//gpio_set_value(GPIO[i], levels[i]); 
 
 		printk(KERN_INFO "GPIO[%d] = %d and level is %d\n", i, GPIO[i],levels[i]);
-		gpio_set_value(GPIO[i], levels[i]); 
-		printk(KERN_INFO "BMC: %d is %d.",GPIO[i],levels[i]);
 	}
 
 
 	// register LED GPIOs, turn LEDs on
 	ret = gpio_request_array(leds, ARRAY_SIZE(leds));
+
+	for(i = 0; i < ARRAY_SIZE(leds); i++) {
+		gpio_set_value(GPIO[i], levels[i]); 
+		printk(KERN_INFO "BMC: %d is %d.",GPIO[i],levels[i]);
+	}
 	printk(KERN_INFO "Leds on.");
 
 	if (ret) {
 		printk(KERN_ERR "Unable to request GPIOs: %d\n", ret);
 	}
-	msleep(1);
 	return ret;
 }
 
@@ -76,7 +78,6 @@ static void __exit gpiomod_exit(void)
 	
 	// unregister all GPIOs
 	gpio_free_array(leds, ARRAY_SIZE(leds));
-	msleep(1);
 }
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Branko De Caluwé");
