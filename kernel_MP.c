@@ -22,9 +22,9 @@ MODULE_PARM_DESC(levels, "LOW(0) or HIGH(1)");
  * Struct defining pins, direction and inital state 
  */
 static struct gpio leds[] = {
-		{ 17, GPIOF_OUT_INIT_HIGH, "LED 1" },  //Pin 11
-		{ 27, GPIOF_OUT_INIT_HIGH, "LED 2" },  //Pin 13
-		{ 22, GPIOF_OUT_INIT_HIGH, "LED 3" },  //Pin 15
+		{ 17, GPIOF_OUT_INIT_HIGH, "LED 1" },  //Pin 36
+		{ 27, GPIOF_OUT_INIT_HIGH, "LED 2" },  //Pin 38
+		{ 22, GPIOF_OUT_INIT_HIGH, "LED 3" },  //Pin 40
 };
 
 /*
@@ -39,19 +39,16 @@ static int __init gpiomod_init(void)
 	printk(KERN_INFO "mystring is a string: %s\n", mystring);
 	for (i = 0; i < (sizeof GPIO / sizeof (int)); i++)
 	{
-		gpio_set_value(GPIO[i], levels[i]); 
+		//gpio_set_value(GPIO[i], levels[i]); 
 
 		printk(KERN_INFO "GPIO[%d] = %d and level is %d\n", i, GPIO[i],levels[i]);
+		gpio_set_value(GPIO[i], levels[i]); 
+		printk(KERN_INFO "BMC: %d is %d.",GPIO[i],levels[i]);
 	}
 
 
 	// register LED GPIOs, turn LEDs on
 	ret = gpio_request_array(leds, ARRAY_SIZE(leds));
-
-	for(i = 0; i < ARRAY_SIZE(leds); i++) {
-		gpio_set_value(leds[i].gpio, levels[i]); 
-		printk(KERN_INFO "BMC: %d is %d.",leds[i].gpio,levels[i]);
-	}
 	printk(KERN_INFO "Leds on.");
 
 	if (ret) {
