@@ -25,9 +25,9 @@ MODULE_PARM_DESC(toggle, "An int");
  * Struct defining pins, direction and inital state 
  */
 static struct gpio leds[] = {
-		{ 17, GPIOF_OUT_INIT_HIGH, "LED 1" },  //Pin 36
-		{ 27, GPIOF_OUT_INIT_HIGH, "LED 2" },  //Pin 38
-		{ 22, GPIOF_OUT_INIT_HIGH, "LED 3" },  //Pin 40
+		{ 17, GPIOF_OUT_INIT_HIGH, "LED 1" },  //Pin 11
+		{ 27, GPIOF_OUT_INIT_HIGH, "LED 2" },  //Pin 13
+		{ 22, GPIOF_OUT_INIT_HIGH, "LED 3" },  //Pin 15
 };
 
 /*
